@@ -24,12 +24,12 @@ import pyttsx3 # text-to-speech library
 import gtts # google text-to-speech library
 from playsound import playsound # to play audio file
 
-# import apikey
 
 # api keys and qdrant endpoint
 os.environ['OPENAI_API_KEY'] = st.secrets.openai_api_key
 os.environ['QDRANT_CLOUD_ENDPOINT'] = st.secrets.qdrant_endpoint
 os.environ['QDRANT_CLOUD_API_KEY'] = st.secrets.qdrant_api_key
+# import apikey
 # os.environ['OPENAI_API_KEY'] = apikey.openai_api_key
 # os.environ['QDRANT_CLOUD_ENDPOINT'] = apikey.qdrant_endpoint
 # os.environ['QDRANT_CLOUD_API_KEY'] = apikey.qdrant_api_key
@@ -60,9 +60,9 @@ def text_to_speech(text):
 def init_page():
     st.set_page_config(
         page_title="Actuarial Tutor",
-        page_icon="🤗"
+        page_icon=""
     )
-    st.header("Actuarial Tutor")
+    st.header("Actuarial Tutor🖋️")
 
 
 def select_settings():
@@ -71,8 +71,8 @@ def select_settings():
     # model
     model_name = "gpt-3.5-turbo"
 
-    # temperatur for GPT. 0.0-2.0. The default is set at 0.0 and interval is set at 0.1
-    temperature = st.sidebar.slider("ChatGPT Temperature:", min_value=0.0, max_value=2.0, value=0.0, step=0.01)
+    # temperatur for GPT. 0.0-1.0. The default is set at 0.0 and interval is set at 0.1
+    temperature = st.sidebar.slider("ChatGPT Temperature:", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
 
     # text-to-speech toggle
     tts_active = st.sidebar.checkbox("Activate text-to-speech", key="activate tts")
@@ -82,10 +82,21 @@ def select_settings():
 
 def select_material():
     st.sidebar.title("Material")
-    material = st.sidebar.radio("Choose a material:", ("ASOP 20", "Private Flood Insurance"))
-    if material == "ASOP 20":
+    material = st.sidebar.radio("Choose a material:",
+                                ("ASOP 20 Discounting of Unpaid Claim Estimates",
+                                 "ASOP 36 Statements of Actuarial Opinion",
+                                 "ASOP 41 Actuarial Communications",
+                                 "ASOP 43 Property/Casualty Unpaid Claim Estimates",
+                                 "Private Flood Insurance and the National Flood Insurance Program"))
+    if material == "ASOP 20 Discounting of Unpaid Claim Estimates":
         st.session_state.material = "6U_ASOP_20"
-    elif material == "Private Flood Insurance":
+    elif material == "ASOP 36 Statements of Actuarial Opinion":
+        st.session_state.material = "6U_ASOP_36"
+    elif material == "ASOP 41 Actuarial Communications":
+        st.session_state.material = "6U_ASOP_41"
+    elif material == "ASOP 43 Property/Casualty Unpaid Claim Estimates":
+        st.session_state.material = "6U_ASOP_43"
+    elif material == "Private Flood Insurance and the National Flood Insurance Program":
         st.session_state.material = "6U_Horn_Webel_Private_Flood_Ins_and_the_National_Flood_Ins_Prog"
 
     return material
@@ -116,7 +127,8 @@ def main():
     st.session_state.activated = st.sidebar.checkbox("Activate Chat", key="activate")
 
     if not st.session_state.activated:
-        st.write('Select the material and click "Activate Chat" button.')
+        st.write('##### Select the material and click "Activate Chat" button.')
+        st.write('##### You can get an audio response with "Activate text-to-speech" button clicked!')
 
     else:
 

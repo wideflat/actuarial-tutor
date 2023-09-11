@@ -15,12 +15,13 @@ from langchain.chains import RetrievalQA
 
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
-# import apikey
+
 
 # api keys and qdrant endpoint
 os.environ['OPENAI_API_KEY'] = st.secrets.openai_api_key
 os.environ['QDRANT_CLOUD_ENDPOINT'] = st.secrets.qdrant_endpoint
 os.environ['QDRANT_CLOUD_API_KEY'] = st.secrets.qdrant_api_key
+# import apikey
 # os.environ['OPENAI_API_KEY'] = apikey.openai_api_key
 # os.environ['QDRANT_CLOUD_ENDPOINT'] = apikey.qdrant_endpoint
 # os.environ['QDRANT_CLOUD_API_KEY'] = apikey.qdrant_api_key

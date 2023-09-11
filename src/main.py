@@ -24,7 +24,7 @@ import pyttsx3 # text-to-speech library
 import gtts # google text-to-speech library
 from playsound import playsound # to play audio file
 
-import apikey
+# import apikey
 
 # api keys and qdrant endpoint
 os.environ['OPENAI_API_KEY'] = st.secrets.openai_api_key

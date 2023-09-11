@@ -26,10 +26,13 @@ from playsound import playsound # to play audio file
 
 import apikey
 
-# initialize api keys
-os.environ['OPENAI_API_KEY'] = apikey.openai_api_key
-os.environ['QDRANT_CLOUD_ENDPOINT'] = apikey.qdrant_endpoint
-os.environ['QDRANT_CLOUD_API_KEY'] = apikey.qdrant_api_key
+# api keys and qdrant endpoint
+os.environ['OPENAI_API_KEY'] = st.secrets.openai_api_key
+os.environ['QDRANT_CLOUD_ENDPOINT'] = st.secrets.qdrant_endpoint
+os.environ['QDRANT_CLOUD_API_KEY'] = st.secrets.qdrant_api_key
+# os.environ['OPENAI_API_KEY'] = apikey.openai_api_key
+# os.environ['QDRANT_CLOUD_ENDPOINT'] = apikey.qdrant_endpoint
+# os.environ['QDRANT_CLOUD_API_KEY'] = apikey.qdrant_api_key
 
 
 # initialize speech recognizer and text-to-speech function

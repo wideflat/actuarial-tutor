@@ -36,9 +36,9 @@ os.environ['QDRANT_CLOUD_API_KEY'] = st.secrets.qdrant_api_key
 
 
 # initialize speech recognizer and text-to-speech function
-tts = pyttsx3.init()
-voices = tts.getProperty('voices')
-tts.setProperty("voice", voices[0].id) # 0: English David, 1: English Zira, 2: Japanese Haruka
+# tts = pyttsx3.init()
+# voices = tts.getProperty('voices')
+# tts.setProperty("voice", voices[0].id) # 0: English David, 1: English Zira, 2: Japanese Haruka
 
 # text-to-speech function
 def text_to_speech(text):

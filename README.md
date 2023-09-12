@@ -87,6 +87,13 @@ The process is divided in two steps. The first step is to store the document inf
   10.	Display the answer in the app
 
 
+## Bugs
+I recongnized the following bugs. I will try to fix them in the future.
+- The app only shows the last one question and answer, and doesn't show previous chats.
+- Audio response doen't work frequently.
+
+
+
 ## Reference
 I referred to the content of the following webpage to create the app. I’m deeply grateful to ML_Bear([@MLBear2](https://twitter.com/MLBear2)) for publishing such a useful content!
 

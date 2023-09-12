@@ -74,14 +74,11 @@ def select_settings():
     # temperatur for GPT. 0.0-1.0. The default is set at 0.0 and interval is set at 0.1
     temperature = st.sidebar.slider("ChatGPT Temperature:", min_value=0.0, max_value=1.0, value=0.0, step=0.01)
 
-    # text-to-speech toggle
-    tts_active = st.sidebar.checkbox("Activate text-to-speech", key="activate tts")
 
-    return ChatOpenAI(temperature=temperature, model_name=model_name, streaming=True), tts_active
+    return ChatOpenAI(temperature=temperature, model_name=model_name, streaming=True)
 
 
 def select_material():
-    st.sidebar.title("Material")
     material = st.sidebar.radio("Choose a material:",
                                 ("ASOP 20 Discounting of Unpaid Claim Estimates",
                                  "ASOP 36 Statements of Actuarial Opinion",
@@ -90,16 +87,21 @@ def select_material():
                                  "Private Flood Insurance and the National Flood Insurance Program"))
     if material == "ASOP 20 Discounting of Unpaid Claim Estimates":
         st.session_state.material = "6U_ASOP_20"
+        material_link = "https://www.casact.org/sites/default/files/2021-03/6U_ASOP_20.pdf"
     elif material == "ASOP 36 Statements of Actuarial Opinion":
         st.session_state.material = "6U_ASOP_36"
+        material_link = "https://www.casact.org/sites/default/files/2021-03/6U_ASOP_36.pdf"
     elif material == "ASOP 41 Actuarial Communications":
         st.session_state.material = "6U_ASOP_41"
+        material_link = "https://www.casact.org/sites/default/files/2021-05/6U_ASOP_41.pdf"
     elif material == "ASOP 43 Property/Casualty Unpaid Claim Estimates":
         st.session_state.material = "6U_ASOP_43"
+        material_link = "https://www.casact.org/sites/default/files/2021-03/6U_ASOP_43.pdf"
     elif material == "Private Flood Insurance and the National Flood Insurance Program":
         st.session_state.material = "6U_Horn_Webel_Private_Flood_Ins_and_the_National_Flood_Ins_Prog"
+        material_link = "https://www.casact.org/sites/default/files/2023-05/6U_Horn_Webel_Private_Flood_Ins_and_the_National_Flood_Ins_Prog.pdf"
 
-    return material
+    return material, material_link
 
 
 def init_messages():
@@ -120,17 +122,28 @@ def ask(qa, query):
 def main():
 
     init_page()
-    llm, st.session_state.tts_active = select_settings()
-    material = select_material()
+    llm = select_settings()
+    material, material_link = select_material()
     init_messages()
-    
+
+    # text-to-speech toggle
+    st.session_state.tts_active  = st.sidebar.checkbox("Activate text-to-speech", key="activate tts")
+
+    # activate chat
     st.session_state.activated = st.sidebar.checkbox("Activate Chat", key="activate")
 
     if not st.session_state.activated:
-        st.write('##### Select the material and click "Activate Chat" button.')
-        st.write('##### You can get an audio response with "Activate text-to-speech" button clicked!')
+        st.write('Welcome to Actuarial Tutor!')
+        st.write("You're studying for actuarial exams and hoping that someone teaches you?")
+        st.write("Or you want to check something in ASOP, but don't have time to read through all the document?")
+        st.write("Vitrual actuarial tutor is here just for you!")
+        st.write('##### How To Use')
+        st.write('- Select the ASOP material and click "Activate Chat" button.')
+        st.write('- You can get an audio response with "Activate text-to-speech" button clicked!')
 
     else:
+        # material link
+        st.write(f'Source material link: [{material}]({material_link})')
 
         # messages
         messages = st.session_state.get('messages', [])
